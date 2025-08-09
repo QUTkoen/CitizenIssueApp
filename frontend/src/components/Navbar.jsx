@@ -12,11 +12,14 @@ const Navbar = () => {
 
   return (
     <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
-      <Link to="/" className="text-2xl font-bold">Task Manager</Link>
+      {/* Renamed the app title */}
+      <Link to="/" className="text-2xl font-bold">Citizen Issue Application</Link>
+
       <div>
         {user ? (
           <>
-            <Link to="/tasks" className="mr-4">Tasks</Link>
+            {/* Renamed Tasks to Reports*/}
+            <Link to="/tasks" className="mr-4">Reports</Link>
             <Link to="/profile" className="mr-4">Profile</Link>
             <button
               onClick={handleLogout}

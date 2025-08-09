@@ -1,40 +1,44 @@
 import { useState, useEffect } from 'react';
 import axiosInstance from '../axiosConfig';
-import TaskForm from '../components/TaskForm';
-import TaskList from '../components/TaskList';
+import ReportForm from '../components/ReportForm';
+import ReportList from '../components/ReportList';
 import { useAuth } from '../context/AuthContext';
 
-const Tasks = () => {
+const Reports = () => {
   const { user } = useAuth();
-  const [tasks, setTasks] = useState([]);
-  const [editingTask, setEditingTask] = useState(null);
+  const [reports, setReports] = useState([]);
+  const [editingReport, setEditingReport] = useState(null);
 
   useEffect(() => {
-    const fetchTasks = async () => {
+    const fetchReports = async () => {
       try {
-        const response = await axiosInstance.get('/api/tasks', {
+        const response = await axiosInstance.get('/api/reports', {
           headers: { Authorization: `Bearer ${user.token}` },
         });
-        setTasks(response.data);
+        setReports(response.data);
       } catch (error) {
-        alert('Failed to fetch tasks.');
+        alert('Failed to fetch reports.');
       }
     };
 
-    fetchTasks();
+    fetchReports();
   }, [user]);
 
   return (
     <div className="container mx-auto p-6">
-      <TaskForm
-        tasks={tasks}
-        setTasks={setTasks}
-        editingTask={editingTask}
-        setEditingTask={setEditingTask}
+      <ReportForm
+        reports={reports}
+        setReports={setReports}
+        editingReport={editingReport}
+        setEditingReport={setEditingReport}
       />
-      <TaskList tasks={tasks} setTasks={setTasks} setEditingTask={setEditingTask} />
+      <ReportList
+        reports={reports}
+        setReports={setReports}
+        setEditingReport={setEditingReport}
+      />
     </div>
   );
 };
 
-export default Tasks;
+export default Reports;
