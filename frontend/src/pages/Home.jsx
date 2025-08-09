@@ -7,7 +7,7 @@ const Home = () => {
           Tag the location on the map, add a description, and help improve your community.
         </p>
         <img
-          src="./public/brisbane pic.jpg"
+          src="/brisbane pic.jpg"
           alt="city logo"
           className="mx-auto max-w-full h-auto rounded shadow"
         />
