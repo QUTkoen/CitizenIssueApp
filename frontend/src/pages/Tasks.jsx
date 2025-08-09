@@ -12,7 +12,7 @@ const Reports = () => {
   useEffect(() => {
     const fetchReports = async () => {
       try {
-        const response = await axiosInstance.get('/api/reports', {
+        const response = await axiosInstance.get('/api/tasks', {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         setReports(response.data);
