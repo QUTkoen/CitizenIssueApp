@@ -11,29 +11,29 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
+    <nav className="bg-green-700 text-yellow-300 p-4 flex justify-between items-center">
       {/* Renamed the app title */}
-      <Link to="/" className="text-2xl font-bold">Citizen Issue Application</Link>
+      <Link to="/" className="text-2xl font-bold hover:text-yellow-500">Citizen Issue Application</Link>
 
       <div>
         {user ? (
           <>
             {/* Renamed Tasks to Reports*/}
-            <Link to="/tasks" className="mr-4">Reports</Link>
-            <Link to="/profile" className="mr-4">Profile</Link>
+            <Link to="/tasks" className="mr-4 hover:text-yellow-400">Reports</Link>
+            <Link to="/profile" className="mr-4 hover:text-yellow-400">Profile</Link>
             <button
               onClick={handleLogout}
-              className="bg-red-500 px-4 py-2 rounded hover:bg-red-700"
+              className="bg-yellow-400 text-green-900 px-4 py-2 rounded hover:bg-yellow-500"
             >
               Logout
             </button>
           </>
         ) : (
           <>
-            <Link to="/login" className="mr-4">Login</Link>
+            <Link to="/login" className="mr-4 hover:text-yellow-400">Login</Link>
             <Link
               to="/register"
-              className="bg-green-500 px-4 py-2 rounded hover:bg-green-700"
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
             >
               Register
             </Link>

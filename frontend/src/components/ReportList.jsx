@@ -6,7 +6,7 @@ const ReportList = ({ reports, setReports, setEditingReport }) => {
 
   const handleDelete = async (reportId) => {
     try {
-      await axiosInstance.delete(`/api/reports/${reportId}`, {
+      await axiosInstance.delete(`/api/tasks/${reportId}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       setReports(reports.filter((report) => report._id !== reportId));

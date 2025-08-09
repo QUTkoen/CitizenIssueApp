@@ -22,12 +22,12 @@ const ReportForm = ({ reports, setReports, editingReport, setEditingReport }) =>
     e.preventDefault();
     try {
       if (editingReport) {
-        const response = await axiosInstance.put(`/api/reports/${editingReport._id}`, formData, {
+        const response = await axiosInstance.put(`/api/tasks/${editingReport._id}`, formData, {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         setReports(reports.map((report) => (report._id === response.data._id ? response.data : report)));
       } else {
-        const response = await axiosInstance.post('/api/reports', formData, {
+        const response = await axiosInstance.post('/api/tasks', formData, {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         setReports([...reports, response.data]);
