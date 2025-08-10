@@ -36,7 +36,10 @@ const ReportList = ({ reports, setReports, setEditingReport }) => {
           <h2 className="font-bold">{report.title}</h2>
           <p>{report.description}</p>
           <p className="text-sm text-gray-500">
-            Deadline: {new Date(report.deadline).toLocaleDateString()}
+            Deadline:{' '}
+            {report.deadline
+              ? new Date(report.deadline).toLocaleDateString()
+              : 'No deadline set'}
           </p>
 
           {/* Status dropdown */}
