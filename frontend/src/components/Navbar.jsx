@@ -23,6 +23,11 @@ const Navbar = () => {
             <Link to="/tasks" className="mr-6 hover:text-yellow-400 transition-colors duration-300">
               Reports
             </Link>
+            
+            <Link to="/park-reservations" className="mr-6 hover:text-yellow-400 transition-colors duration-300">
+              Park Reservations
+            </Link>
+            
             <Link to="/profile" className="mr-6 hover:text-yellow-400 transition-colors duration-300">
               Profile
             </Link>
