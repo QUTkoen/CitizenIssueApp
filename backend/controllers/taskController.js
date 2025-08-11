@@ -10,13 +10,14 @@ const getTasks = async (req, res) => {
 };
 
 const addTask = async (req, res) => {
-  const { title, description, deadline } = req.body;
+  const { title, description, deadline, status } = req.body;
   try {
     const task = await Task.create({
       userId: req.user.id,
       title,
       description,
-      deadline
+      deadline,
+      status // now accepts initial status if provided
     });
     res.status(201).json(task);
   } catch (error) {
@@ -25,15 +26,17 @@ const addTask = async (req, res) => {
 };
 
 const updateTask = async (req, res) => {
-  const { title, description, completed, deadline } = req.body;
+  const { title, description, completed, deadline, status } = req.body;
   try {
     const task = await Task.findById(req.params.id);
     if (!task) return res.status(404).json({ message: 'Task not found' });
 
+    // Only update fields if they are sent in the request
     task.title = title || task.title;
     task.description = description || task.description;
     task.completed = completed ?? task.completed;
     task.deadline = deadline || task.deadline;
+    task.status = status || task.status; // <-- Added this line
 
     const updatedTask = await task.save();
     res.json(updatedTask);
