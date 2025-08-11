@@ -18,7 +18,7 @@ const Home = () => {
           Help improve your community by adding detailed descriptions and locations.
         </p>
         <a
-          href="/tasks"
+          href="/login"
           className="inline-block bg-yellow-400 text-green-900 font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-yellow-500 transition-colors duration-300"
         >
           Report an Issue Now
