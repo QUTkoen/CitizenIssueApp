@@ -9,6 +9,7 @@ const ReportForm = ({ reports, setReports, editingReport, setEditingReport }) =>
     description: '',
     deadline: '',
     status: 'Pending',
+    address: '',  // <-- added address here
   });
 
   useEffect(() => {
@@ -20,9 +21,10 @@ const ReportForm = ({ reports, setReports, editingReport, setEditingReport }) =>
           ? new Date(editingReport.deadline).toISOString().split('T')[0]
           : '',
         status: editingReport.status || 'Pending',
+        address: editingReport.address || '', // <-- load existing address
       });
     } else {
-      setFormData({ title: '', description: '', deadline: '', status: 'Pending' });
+      setFormData({ title: '', description: '', deadline: '', status: 'Pending', address: '' });
     }
   }, [editingReport]);
 
@@ -45,84 +47,59 @@ const ReportForm = ({ reports, setReports, editingReport, setEditingReport }) =>
         setReports([...reports, response.data]);
       }
       setEditingReport(null);
-      setFormData({ title: '', description: '', deadline: '', status: 'Pending' });
+      setFormData({ title: '', description: '', deadline: '', status: 'Pending', address: '' });
     } catch (error) {
       alert('Failed to save report.');
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-white p-8 shadow-lg rounded-lg max-w-lg mx-auto mb-6"
-    >
-      <h1 className="text-3xl font-extrabold mb-6 text-center text-blue-700">
-        {editingReport ? 'Edit Report' : 'Add Report'}
-      </h1>
+    <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded mb-6">
+      <h1 className="text-2xl font-bold mb-4">{editingReport ? 'Edit Report' : 'Add Report'}</h1>
+      
+      <input
+        type="text"
+        placeholder="Title"
+        value={formData.title}
+        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+        className="w-full mb-4 p-2 border rounded"
+        required
+      />
 
-      <div className="mb-5">
-        <label htmlFor="title" className="block text-gray-700 font-semibold mb-2">
-          Title
-        </label>
-        <input
-          id="title"
-          type="text"
-          placeholder="Enter title"
-          value={formData.title}
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          required
-        />
-      </div>
+      <input
+        type="text"
+        placeholder="Description"
+        value={formData.description}
+        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+        className="w-full mb-4 p-2 border rounded"
+      />
 
-      <div className="mb-5">
-        <label htmlFor="description" className="block text-gray-700 font-semibold mb-2">
-          Description
-        </label>
-        <textarea
-          id="description"
-          placeholder="Enter description"
-          value={formData.description}
-          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          rows={4}
-          required
-        />
-      </div>
+      <input
+        type="date"
+        value={formData.deadline}
+        onChange={(e) => setFormData({ ...formData, deadline: e.target.value })}
+        className="w-full mb-4 p-2 border rounded"
+      />
 
-      <div className="mb-5">
-        <label htmlFor="deadline" className="block text-gray-700 font-semibold mb-2">
-          Deadline
-        </label>
-        <input
-          id="deadline"
-          type="date"
-          value={formData.deadline}
-          onChange={(e) => setFormData({ ...formData, deadline: e.target.value })}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-        />
-      </div>
-
-      <div className="mb-6">
-        <label htmlFor="status" className="block text-gray-700 font-semibold mb-2">
-          Status
-        </label>
-        <select
-          id="status"
-          value={formData.status}
-          onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-        >
-          <option value="Pending">Pending</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Completed">Completed</option>
-        </select>
-      </div>
-
-      <button
-        type="submit"
-        className="w-full bg-gradient-to-r from-yellow-400 via-green-400 to-blue-500 hover:from-yellow-500 hover:via-green-500 hover:to-blue-600 text-white font-bold py-3 rounded-lg shadow-lg transition duration-300"
+      <select
+        value={formData.status}
+        onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+        className="w-full mb-4 p-2 border rounded"
       >
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+
+      <input
+        type="text"
+        placeholder="Address"
+        value={formData.address}
+        onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+        className="w-full mb-4 p-2 border rounded"
+      />
+
+      <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
         {editingReport ? 'Update Report' : 'Add Report'}
       </button>
     </form>
