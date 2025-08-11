@@ -29,30 +29,29 @@ const ReportList = ({ reports, setReports, setEditingReport }) => {
   };
 
   return (
-    <div className="max-w-lg mx-auto">
+    <div>
       {reports.map((report) => (
-        <div
-          key={report._id}
-          className="bg-white p-6 mb-6 rounded-lg shadow-md border border-gray-200"
-        >
-          <h2 className="text-xl font-semibold text-blue-700 mb-2">{report.title}</h2>
-          <p className="text-gray-700 mb-3 whitespace-pre-line">{report.description}</p>
-          <p className="text-sm text-gray-500 mb-4">
-            <span className="font-semibold">Deadline:</span>{' '}
+        <div key={report._id} className="bg-gray-100 p-4 mb-4 rounded shadow">
+          <h2 className="font-bold text-lg">{report.title}</h2>
+          <p className="mb-2">{report.description}</p>
+          <p className="text-sm text-gray-500">
+            Deadline:{' '}
             {report.deadline
               ? new Date(report.deadline).toLocaleDateString()
               : 'No deadline set'}
           </p>
 
-          <div className="mb-4">
-            <label htmlFor={`status-${report._id}`} className="block font-semibold mb-1">
-              Status:
-            </label>
+          <p className="text-sm text-gray-700 font-semibold mt-2">
+            Address: {report.address || 'No address provided'}
+          </p>
+
+          {/* Status dropdown */}
+          <div className="mt-2">
+            <label className="mr-2 font-semibold">Status:</label>
             <select
-              id={`status-${report._id}`}
               value={report.status || 'Pending'}
               onChange={(e) => handleStatusChange(report._id, e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="border p-1 rounded"
             >
               <option value="Pending">Pending</option>
               <option value="In Progress">In Progress</option>
@@ -60,16 +59,16 @@ const ReportList = ({ reports, setReports, setEditingReport }) => {
             </select>
           </div>
 
-          <div className="flex justify-end space-x-3">
+          <div className="mt-4">
             <button
               onClick={() => setEditingReport(report)}
-              className="bg-yellow-500 hover:bg-yellow-600 transition text-white font-semibold px-5 py-2 rounded-lg shadow"
+              className="mr-2 bg-yellow-500 text-white px-4 py-2 rounded"
             >
               Edit
             </button>
             <button
               onClick={() => handleDelete(report._id)}
-              className="bg-red-500 hover:bg-red-600 transition text-white font-semibold px-5 py-2 rounded-lg shadow"
+              className="bg-red-500 text-white px-4 py-2 rounded"
             >
               Delete
             </button>
