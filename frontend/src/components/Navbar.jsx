@@ -43,6 +43,10 @@ const Navbar = () => {
             <Link to="/login" className="mr-6 hover:text-yellow-400 transition-colors duration-300">
               Login
             </Link>
+            <Link to="/park-reservations" className="mr-6 hover:text-yellow-400 transition-colors duration-300">
+              Park Reservations
+            </Link>
+
             <Link
               to="/register"
               className="bg-blue-500 text-white px-5 py-2 rounded hover:bg-blue-700 transition-colors duration-300"
