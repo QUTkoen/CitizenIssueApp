@@ -9,19 +9,19 @@ const ReportForm = ({ reports, setReports, editingReport, setEditingReport }) =>
     description: '',
     deadline: '',
     status: 'Pending',
-    address: '',  // <-- added address here
+    address: '',
   });
 
   useEffect(() => {
     if (editingReport) {
       setFormData({
-        title: editingReport.title,
-        description: editingReport.description,
+        title: editingReport.title || '',
+        description: editingReport.description || '',
         deadline: editingReport.deadline
           ? new Date(editingReport.deadline).toISOString().split('T')[0]
           : '',
         status: editingReport.status || 'Pending',
-        address: editingReport.address || '', // <-- load existing address
+        address: editingReport.address || '',
       });
     } else {
       setFormData({ title: '', description: '', deadline: '', status: 'Pending', address: '' });
@@ -54,37 +54,36 @@ const ReportForm = ({ reports, setReports, editingReport, setEditingReport }) =>
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded mb-6">
-      <h1 className="text-2xl font-bold mb-4">{editingReport ? 'Edit Report' : 'Add Report'}</h1>
-      
+    <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded mb-6 max-w-xl mx-auto">
+      <h1 className="text-2xl font-bold mb-6">{editingReport ? 'Edit Report' : 'Add Report'}</h1>
+
       <input
         type="text"
         placeholder="Title"
         value={formData.title}
         onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-        className="w-full mb-4 p-2 border rounded"
+        className="w-full mb-4 p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
         required
       />
 
-      <input
-        type="text"
+      <textarea
         placeholder="Description"
         value={formData.description}
         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-        className="w-full mb-4 p-2 border rounded"
+        className="w-full mb-4 p-3 border rounded h-24 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
 
       <input
         type="date"
         value={formData.deadline}
         onChange={(e) => setFormData({ ...formData, deadline: e.target.value })}
-        className="w-full mb-4 p-2 border rounded"
+        className="w-full mb-4 p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
 
       <select
         value={formData.status}
         onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-        className="w-full mb-4 p-2 border rounded"
+        className="w-full mb-4 p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
       >
         <option value="Pending">Pending</option>
         <option value="In Progress">In Progress</option>
@@ -96,10 +95,13 @@ const ReportForm = ({ reports, setReports, editingReport, setEditingReport }) =>
         placeholder="Address"
         value={formData.address}
         onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-        className="w-full mb-4 p-2 border rounded"
+        className="w-full mb-6 p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
 
-      <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
+      <button
+        type="submit"
+        className="w-full bg-blue-600 text-white p-3 rounded font-semibold hover:bg-blue-700 transition-colors duration-300"
+      >
         {editingReport ? 'Update Report' : 'Add Report'}
       </button>
     </form>

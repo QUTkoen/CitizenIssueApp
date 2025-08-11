@@ -8,21 +8,31 @@ const Reports = () => {
   const { user } = useAuth();
   const [reports, setReports] = useState([]);
   const [editingReport, setEditingReport] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchReports = async () => {
+      setLoading(true);
       try {
         const response = await axiosInstance.get('/api/tasks', {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         setReports(response.data);
-      } catch (error) {
+      } catch {
         alert('Failed to fetch reports.');
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchReports();
+    if (user) {
+      fetchReports();
+    }
   }, [user]);
+
+  if (loading) {
+    return <div className="text-center mt-20">Loading reports...</div>;
+  }
 
   return (
     <div className="container mx-auto p-6">
