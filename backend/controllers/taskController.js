@@ -10,7 +10,7 @@ const getTasks = async (req, res) => {
 };
 
 const addTask = async (req, res) => {
-  const { title, description, deadline, status, address } = req.body;
+  const { title, description, deadline, status, address } = req.body; //bla bla
   try {
     const task = await Task.create({
       userId: req.user.id,
