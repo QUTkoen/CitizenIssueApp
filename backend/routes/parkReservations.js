@@ -3,12 +3,12 @@ const router = express.Router();
 const { getReservations, addReservation, deleteReservation } = require('../controllers/parkReservationController');
 
 // GET all or filtered reservations
-router.get('/park-reservations', getReservations);
+router.get('/', getReservations);
 
 // POST new reservation
-router.post('/park-reservations', addReservation);
+router.post('/', addReservation);
 
 // DELETE reservation by id
-router.delete('/park-reservations/:id', deleteReservation);
+router.delete('/:id', deleteReservation);
 
 module.exports = router;
