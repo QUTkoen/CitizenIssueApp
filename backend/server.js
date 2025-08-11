@@ -3,14 +3,8 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const connectDB = require('./config/db');
-const reservationsRouter = require('./routes/reservationRoutes');
-const parkReservationsRouter = require('./routes/parkReservations');
+const reservationsRouter = require('./routes/parkReservations');
 dotenv.config();
-
-
-
-
-
 
 const app = express();
 
