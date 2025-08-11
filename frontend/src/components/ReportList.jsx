@@ -15,6 +15,20 @@ const ReportList = ({ reports, setReports, setEditingReport }) => {
     }
   };
 
+  const handleStatusChange = async (reportId, newStatus) => {
+    try {
+      const res = await axiosInstance.put(
+        `/api/tasks/${reportId}`,
+        { status: newStatus },
+        { headers: { Authorization: `Bearer ${user.token}` } }
+      );
+      // Replace updated report in state
+      setReports(reports.map((r) => (r._id === reportId ? res.data : r)));
+    } catch (err) {
+      alert('Failed to update status.');
+    }
+  };
+
   return (
     <div>
       {reports.map((report) => (
@@ -22,9 +36,27 @@ const ReportList = ({ reports, setReports, setEditingReport }) => {
           <h2 className="font-bold">{report.title}</h2>
           <p>{report.description}</p>
           <p className="text-sm text-gray-500">
-            Deadline: {new Date(report.deadline).toLocaleDateString()}
+            Deadline:{' '}
+            {report.deadline
+              ? new Date(report.deadline).toLocaleDateString()
+              : 'No deadline set'}
           </p>
+
+          {/* Status dropdown */}
           <div className="mt-2">
+            <label className="mr-2 font-semibold">Status:</label>
+            <select
+              value={report.status || 'Pending'}
+              onChange={(e) => handleStatusChange(report._id, e.target.value)}
+              className="border p-1 rounded"
+            >
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+
+          <div className="mt-4">
             <button
               onClick={() => setEditingReport(report)}
               className="mr-2 bg-yellow-500 text-white px-4 py-2 rounded"
