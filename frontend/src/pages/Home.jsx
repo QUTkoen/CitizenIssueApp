@@ -14,7 +14,7 @@ const Home = () => {
           Welcome to Citizen Issue Reporter
         </h1>
         <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed drop-shadow-md">
-          Quickly report potholes, broken street lights, graffiti, or other civic issues.
+          Quickly report potholes, broken street lights, graffiti, or other civic issues like reserving a place in the park.
           Help improve your community by adding detailed descriptions and locations.
         </p>
         <a
