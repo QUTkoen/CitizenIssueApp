@@ -7,7 +7,6 @@ const ParkReservations = () => {
   const [reservations, setReservations] = useState([]);
   const [selectedPark, setSelectedPark] = useState('Central Park');
 
-  // Fetch all reservations on mount
   useEffect(() => {
     const fetchReservations = async () => {
       try {
@@ -50,8 +49,14 @@ const ParkReservations = () => {
         </select>
       </div>
 
-      <ParkReservationForm reservations={reservations} setReservations={setReservations} />
+      {/* Only one form, with selectedPark prop */}
+      <ParkReservationForm
+        reservations={reservations}
+        setReservations={setReservations}
+        selectedPark={selectedPark}
+      />
 
+      {/* Your list component (make sure it filters based on selectedPark) */}
       <ParkReservationList
         reservations={reservations}
         setReservations={setReservations}

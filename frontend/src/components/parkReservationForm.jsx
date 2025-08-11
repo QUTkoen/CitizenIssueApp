@@ -1,26 +1,18 @@
 import { useState, useEffect } from 'react';
 import axiosInstance from '../axiosConfig';
 
-const PARKS = [
-  'Central Park',
-  'Lakeside Park',
-  'Sunnyvale Park',
-  'Riverside Park',
-  'Maple Grove',
-  'Willow Woods',
-  'Pine Hill',
-  'Meadow View',
-  'Cedar Grove',
-  'Oak Ridge',
-];
-
-const ParkReservationForm = ({ reservations, setReservations }) => {
+const ParkReservationForm = ({ reservations, setReservations, selectedPark }) => {
   const [formData, setFormData] = useState({
-    park: PARKS[0],
+    park: selectedPark,
     date: '',
     reasons: [],
   });
   const [loading, setLoading] = useState(false);
+
+  // When selectedPark changes from parent, update formData.park
+  useEffect(() => {
+    setFormData((prev) => ({ ...prev, park: selectedPark }));
+  }, [selectedPark]);
 
   const toggleReason = (reason) => {
     setFormData((prev) => {
@@ -47,7 +39,7 @@ const ParkReservationForm = ({ reservations, setReservations }) => {
     try {
       const res = await axiosInstance.post('/api/park-reservations', formData);
       setReservations([...reservations, res.data]);
-      setFormData({ park: PARKS[0], date: '', reasons: [] });
+      setFormData((prev) => ({ ...prev, date: '', reasons: [] }));
     } catch (error) {
       alert('Failed to add reservation.');
     } finally {
@@ -57,23 +49,10 @@ const ParkReservationForm = ({ reservations, setReservations }) => {
 
   return (
     <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow max-w-xl mx-auto mb-8">
-      <h2 className="text-2xl font-bold mb-4">Make a Reservation</h2>
+      <h2 className="text-2xl font-bold mb-4">Make a Reservation for {selectedPark}</h2>
 
-      <label className="block mb-4">
-        Park:
-        <select
-          value={formData.park}
-          onChange={(e) => setFormData({ ...formData, park: e.target.value })}
-          className="w-full p-2 border rounded mt-1"
-          disabled={loading}
-        >
-          {PARKS.map((park) => (
-            <option key={park} value={park}>
-              {park}
-            </option>
-          ))}
-        </select>
-      </label>
+      {/* Park is fixed, no select */}
+      <p className="mb-4 font-semibold">Park: {selectedPark}</p>
 
       <label className="block mb-4">
         Date:
